@@ -1,0 +1,51 @@
+<div class="login-container">
+  <mat-card-content>
+    <!-- Login Form -->
+    <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
+      <!-- Username Field -->
+      <mat-form-field class="full-width">
+        <mat-label>اسم المستخدم</mat-label>
+        <input
+          matInput
+          formControlName="username"
+          required
+        />
+        <mat-error *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched">
+          يجب إدخال اسم المستخدم.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password Field -->
+      <mat-form-field class="full-width">
+        <mat-label>كلمة المرور</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          required
+        />
+        <mat-error *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
+          يجب إدخال كلمة المرور.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Submit Button -->
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          تسجيل الدخول
+        </button>
+      </div>
+    </form>
+
+    <!-- Register Redirect Text -->
+    <div class="register-redirect">
+      <span>إذا لم يكن لديك حساب، </span>
+      <a mat-button routerLink="/register">سجل الآن</a>
+    </div>
+  </mat-card-content>
+</div>

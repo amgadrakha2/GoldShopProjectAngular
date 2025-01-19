@@ -1,0 +1,20 @@
+<h2>User Management</h2>
+<div *ngIf="message">{{ message }}</div>
+
+<ul>
+  <li *ngFor="let user of users">
+    {{ user.userName }} ({{ user.phoneNumber }})
+    <button (click)="selectUser(user)">Edit</button>
+    <button (click)="deleteUser(user.id)">Delete</button>
+  </li>
+</ul>
+
+<div *ngIf="selectedUser">
+  <h3>Edit User</h3>
+  <form (ngSubmit)="updateUser()">
+    <input [(ngModel)]="selectedUser.userName" name="editUserName" placeholder="Username" required />
+    <input [(ngModel)]="selectedUser.password" name="editPassword" type="password" placeholder="Password" />
+    <input [(ngModel)]="selectedUser.phoneNumber" name="editPhoneNumber" placeholder="Phone Number" />
+    <button type="submit">Update User</button>
+  </form>
+</div>

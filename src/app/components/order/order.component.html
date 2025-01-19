@@ -1,0 +1,129 @@
+<div class="add-order-container" dir="rtl">
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" style="width: 100%;">
+    <!-- تفاصيل الطلب -->
+    <mat-card>
+      <mat-card-content formGroupName="client" class="Ordersforms">
+        <mat-form-field appearance="outline">
+          <mat-label>اسم العميل</mat-label>
+          <input
+            matInput
+            formControlName="name"
+            placeholder="أدخل اسم العميل"
+            (blur)="onClientNameBlur()" />
+          <mat-error *ngIf="orderForm.get('client.name')?.invalid">اسم العميل مطلوب.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>العنوان</mat-label>
+          <input matInput formControlName="address" placeholder="أدخل العنوان" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>رقم الهاتف</mat-label>
+          <input matInput formControlName="phoneNumber" placeholder="أدخل رقم الهاتف" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>التاريخ</mat-label>
+          <input matInput formControlName="date" type="date" placeholder="أدخل التاريخ" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>الوقت</mat-label>
+          <input matInput formControlName="time" type="time" placeholder="أدخل الوقت" />
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-content class="Ordersforms">
+        <mat-form-field appearance="outline">
+          <mat-label>نوع الطلب</mat-label>
+          <mat-select formControlName="orderType">
+            <mat-option value="Standard">عادي</mat-option>
+            <mat-option value="Express">سريع</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>اسم الموظف</mat-label>
+          <input matInput formControlName="employeeName" placeholder="أدخل اسم الموظف" />
+          <mat-error *ngIf="orderForm.get('employeeName')?.invalid">اسم الموظف مطلوب.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>أجل</mat-label>
+          <input matInput type="number" formControlName="delay" placeholder="أدخل التأخير (اختياري)" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>إجمالي الوزن</mat-label>
+          <input matInput [value]="orderForm.get('totalWeight')?.value" readonly />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>الإجمالي</mat-label>
+          <input matInput [value]="orderForm.get('totalPrice')?.value" readonly />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- العناصر -->
+    <mat-card class="itemforms">
+      <mat-card-content formArrayName="items">
+        <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-group">
+          <div class="item-fields-container">
+            <mat-form-field appearance="outline">
+              <mat-label>اسم العنصر</mat-label>
+              <input
+                matInput
+                formControlName="name"
+                [matAutocomplete]="auto"
+                (input)="filterItems($event, i)"
+                placeholder="أدخل أو اختر اسم العنصر" />
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onItemNameSelected($event.option.value, i)">
+                <mat-option *ngFor="let option of filteredItems[i]" [value]="option.name">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="items.at(i).get('name')?.invalid">اسم العنصر مطلوب.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>الوزن</mat-label>
+              <input matInput type="number" formControlName="weight" placeholder="أدخل الوزن" />
+              <mat-error *ngIf="items.at(i).get('weight')?.invalid">الوزن مطلوب وصحيح.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>السعر</mat-label>
+              <input matInput type="number" formControlName="price" placeholder="أدخل السعر" />
+              <mat-error *ngIf="items.at(i).get('price')?.invalid">السعر مطلوب وصحيح.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>النقاء</mat-label>
+              <input matInput type="number" formControlName="purity" placeholder="أدخل النقاء" />
+              <mat-error *ngIf="items.at(i).get('purity')?.invalid">النقاء مطلوب وصحيح.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>الباركود التلقائي</mat-label>
+              <input matInput formControlName="autoBarcode" placeholder="أدخل الباركود (اختياري)" />
+            </mat-form-field>
+
+            <button mat-mini-fab color="warn" (click)="removeItem(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button mat-mini-fab color="primary" (click)="addItem()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">إرسال الطلب</button>
+      <button mat-raised-button color="accent" type="button" (click)="onNewOrder()">طلب جديد</button>
+    </div>
+  </form>
+</div>

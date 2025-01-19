@@ -1,0 +1,27 @@
+mat-form-field {
+  --mat-primary-color: #4caf50; /* Green */
+  --mat-accent-color: #ff5722; /* Orange */
+  --mat-warn-color: #f44336;  /* Red */
+}
+
+mat-error {
+  color: var(--mat-warn-color); /* Custom error color */
+}
+
+.Ordersforms {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  gap: 16px; /* Spacing between fields */
+}
+
+
+
+.Ordersforms mat-form-field {
+  width: 100%; /* Ensure fields take the full width of the grid column */
+}
+
+.itemforms mat-form-field{
+
+  width: 19%;
+}
+

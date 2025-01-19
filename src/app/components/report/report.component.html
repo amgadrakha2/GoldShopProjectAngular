@@ -1,0 +1,78 @@
+<div class="reports-container">
+  <h1>التقارير</h1>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading">جاري التحميل...</div>
+
+  <!-- Error Message -->
+  <div *ngIf="isError && !isLoading" class="error-message">
+    <p>لم يتم العثور على أي طلبات باستخدام مصطلح البحث المحدد.</p>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <h2>بحث عن الطلبات</h2>
+    <form [formGroup]="searchForm" (ngSubmit)="searchOrders()">
+      <mat-form-field appearance="outline">
+        <mat-label>بحث</mat-label>
+        <input matInput formControlName="searchTerm" placeholder="أدخل اسم العميل أو الهاتف أو العنوان" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">بحث</button>
+      <button mat-button color="accent" (click)="restartOrders()">إعادة تشغيل</button>
+    </form>
+  </div>
+
+  <!-- Orders Table -->
+  <div class="table-container">
+    <h3 *ngIf="orders.length > 0"></h3>
+    <mat-table [dataSource]="orders" class="mat-elevation-z8 custom-table">
+      <ng-container matColumnDef="clientName">
+        <mat-header-cell *matHeaderCellDef> اسم العميل </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.client.name }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> العنوان </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.client.address }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell *matHeaderCellDef> رقم الهاتف </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.client.phoneNumber }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="orderType">
+        <mat-header-cell *matHeaderCellDef> نوع الطلب </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.orderType }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalWeight">
+        <mat-header-cell *matHeaderCellDef> الوزن الإجمالي </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.totalWeight }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPrice">
+        <mat-header-cell *matHeaderCellDef> السعر الإجمالي </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.totalPrice }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="time">
+        <mat-header-cell *matHeaderCellDef> الوقت </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.time }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> التاريخ </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.date | date: 'medium' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="employeeName">
+        <mat-header-cell *matHeaderCellDef> اسم الموظف </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{ order.employeeName }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['clientName', 'address', 'phoneNumber', 'orderType', 'totalWeight', 'totalPrice', 'time', 'date', 'employeeName']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['clientName', 'address', 'phoneNumber', 'orderType', 'totalWeight', 'totalPrice', 'time', 'date', 'employeeName'];"></mat-row>
+    </mat-table>
+  </div>
+</div>

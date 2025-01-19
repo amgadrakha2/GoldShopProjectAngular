@@ -1,0 +1,51 @@
+.login-container {
+  background-color: #cdb89d; /* Sets the background color */
+  border-radius: 8px; /* Rounds the corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+  padding: 16px; /* Adds internal spacing */
+  max-width: 400px; /* Sets a maximum width for the card */
+  margin: 20px auto; /* Centers the card horizontally and adds vertical spacing */
+}
+.register-redirect {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.register-redirect a {
+  color: #3f51b5; /* Customize color */
+  text-decoration: none;
+}
+
+mat-card {
+  width: 400px;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.message {
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background-image: url('/assets/Imges/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+

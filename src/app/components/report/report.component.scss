@@ -1,0 +1,14 @@
+
+.table-container {
+  overflow-x: auto; /* Enable horizontal scroll */
+}
+
+.custom-table {
+  width: 150%; /* Adjust width to fit the columns */
+}
+
+.mat-header-cell,
+.mat-cell {
+  min-width: 150px; /* Set minimum width for columns */
+  text-align: center; /* Center-align text in cells */
+}

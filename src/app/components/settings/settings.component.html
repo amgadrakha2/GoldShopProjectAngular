@@ -1,0 +1,38 @@
+<div class="settings-container">
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading settings, please wait...</p>
+  </div>
+
+  <!-- Settings Table -->
+  <div *ngIf="!isLoading && settings.length > 0">
+    <div class="settings-row" *ngFor="let setting of settings">
+      <!-- Purity Price Input -->
+      <mat-form-field appearance="fill" class="purity-input">
+        <mat-label>Purity Price</mat-label>
+        <input
+          matInput
+          type="number"
+          step="0.01"
+          [(ngModel)]="setting.purityPrice"
+        />
+      </mat-form-field>
+
+      <!-- Save Button -->
+      <button
+        mat-raised-button
+        color="primary"
+        class="save-button"
+        (click)="updateSetting(setting)"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="!isLoading && settings.length === 0" class="no-data-container">
+    <p>No settings available.</p>
+  </div>
+</div>
