@@ -34,7 +34,8 @@ import { LoginComponent } from './components/Account/login/login.component';
 import { RegisterComponent } from './components/Account/register/register.component';
 import { ItemComponent } from './components/item/item.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { LogoutDialogComponent } from './components/logoutdialogt/logout-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     LoginComponent,
     RegisterComponent,
     ItemComponent,
+    LogoutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MatButtonModule,
     MatTableModule,
     MatSortModule,
+    MatDialogModule,
     AgGridModule,
     MatSelectModule,
     MatDividerModule,

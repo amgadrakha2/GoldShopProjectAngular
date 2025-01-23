@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-add-order',
@@ -17,10 +18,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class OrderComponent implements OnInit , OnDestroy {
   orderForm: FormGroup;
+  allEmployees: any[] = [];
   allItems: Item[] = [];
   filteredItems: Item[][] = [];
   isLoading = false;
   private destroy$ = new Subject<void>();
+  private timeInterval: any;
 
   constructor(
     private fb: FormBuilder,
@@ -37,33 +40,70 @@ export class OrderComponent implements OnInit , OnDestroy {
         name: ['', Validators.required],
         address: [''],
         phoneNumber: [''],
-        date: [new Date().toISOString().split('T')[0], Validators.required],
-        time: [new Date().toISOString().split('T')[1].slice(0, 8), Validators.required],
+        date: [this.getCurrentDate(), Validators.required],
+        time: [this.getCurrentTimeWithOffset(), Validators.required],
       }),
       orderType: ['Standard', Validators.required],
       employeeName: ['', Validators.required],
       delay: [''],
       totalWeight: [0],
       totalPrice: [0],
-      items: this.fb.array([])
+      items: this.fb.array([], this.minLengthArray(1)) // Custom validator to ensure at least one item
     });
 
-
+    this.fetchEmployeeNames();
     this.fetchItems();
   }
 
   ngOnInit(): void {
-    console.log(this.orderForm.value);
+    // Start interval to update the time every second
+    this.timeInterval = setInterval(() => {
+      this.orderForm.get('client.time')?.setValue(this.getCurrentTimeWithOffset());
+    }, 1000);
   }
 
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+
+    // Clear interval to avoid memory leaks
+    if (this.timeInterval) {
+      clearInterval(this.timeInterval);
+    }
+  }
+
+  fetchEmployeeNames(): void {
+    this.orderService.getAllOrders().subscribe({
+      next: (orders: Order[]) => {
+        // Extract unique employee names from orders
+        const names = orders.map(order => order.employeeName);
+        this.allEmployees = Array.from(new Set(names)); // Remove duplicates
+      },
+      error: (error) => {
+        console.error('Error fetching orders:', error);
+      }
+    });
+  }
+  minLengthArray(min: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const array = control as FormArray;
+      return array.length >= min ? null : { minLength: true };
+    };
   }
 
   get items(): FormArray {
     return this.orderForm.get('items') as FormArray;
+  }
+
+  private getCurrentDate(): string {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  private getCurrentTimeWithOffset(): string {
+    const now = new Date();
+    now.setHours(now.getHours()); // Add 3 hours to current time
+    return now.toTimeString().split(' ')[0]; // Return HH:mm:ss
   }
 
   addItem(): void {
@@ -86,6 +126,8 @@ export class OrderComponent implements OnInit , OnDestroy {
     itemGroup.get('price')?.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => this.updateTotals());
   }
 
+
+
   updateTotals(): void {
     const items = this.items.value as Item[];
     const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
@@ -105,18 +147,19 @@ export class OrderComponent implements OnInit , OnDestroy {
 
   fetchItems(): void {
     this.isLoading = true;
-    this.itemService.getAllItems().pipe(takeUntil(this.destroy$)).subscribe(
-      (items: Item[]) => {
+    this.itemService.getAllItems().pipe(takeUntil(this.destroy$)).subscribe({
+      next: (items: Item[]) => {
         this.allItems = items;
         this.filteredItems = this.items.controls.map(() => [...items]);
         this.isLoading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching items:', error);
         this.isLoading = false;
-      }
-    );
+      },
+    });
   }
+
 
   filterItems(event: Event, index: number): void {
     const inputElement = event.target as HTMLInputElement;
@@ -174,8 +217,8 @@ export class OrderComponent implements OnInit , OnDestroy {
       delay: '',
       totalWeight: 0,
       totalPrice: 0,
-      date: new Date().toISOString().split('T')[0],
-      time: new Date().toISOString().split('T')[1].slice(0, 8),
+      date: this.getCurrentDate(), // Update to always fetch the current date
+      time: this.getCurrentTimeWithOffset(),
       items: []
     });
 
@@ -220,5 +263,4 @@ export class OrderComponent implements OnInit , OnDestroy {
   onNewOrder(): void {
     this.resetForm();
   }
-
 }

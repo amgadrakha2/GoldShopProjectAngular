@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LogoutDialogComponent } from '../../components/logoutdialogt/logout-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -7,12 +9,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dialog: MatDialog) {}
+
+  confirmLogout(): void {
+    const dialogRef = this.dialog.open(LogoutDialogComponent);
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed === true) {
+        this.logout();
+      }
+    });
+  }
+
 
   logout(): void {
-    // Clear any stored authentication tokens (if applicable)
-    localStorage.clear();
-    // Navigate back to the login page
-    this.router.navigate(['/login']);
+    localStorage.clear(); // Clear any stored authentication tokens
+    this.router.navigate(['/login']); // Navigate back to the login page
   }
 }

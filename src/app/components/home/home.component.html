@@ -1,10 +1,10 @@
 <mat-toolbar color="primary" class="navbar">
   <!-- Navbar Links -->
   <div class="navbar-links">
-    <a mat-button routerLink="/home/order" routerLinkActive="active-link">الطلب</a>
-    <a mat-button routerLink="/home/client" routerLinkActive="active-link">العميل</a>
-    <a mat-button routerLink="/home/item" routerLinkActive="active-link">العنصر</a>
-    <a mat-button routerLink="/home/report" routerLinkActive="active-link">التقرير</a>
+    <a mat-button routerLink="/home/order" routerLinkActive="active-link">الطلبات</a>
+    <a mat-button routerLink="/home/client" routerLinkActive="active-link">العملاء</a>
+    <a mat-button routerLink="/home/item" routerLinkActive="active-link">المنتجات</a>
+    <a mat-button routerLink="/home/report" routerLinkActive="active-link">التقارير</a>
     <button
       mat-icon-button
       routerLink="/home/settings"
@@ -16,12 +16,12 @@
   </div>
 
   <!-- Logout Button -->
-  <button mat-raised-button color="warn" class="logout-button" (click)="logout()">
+  <button mat-raised-button color="warn" class="logout-button" (click)="confirmLogout()">
     تسجيل الخروج
   </button>
 </mat-toolbar>
 
 <!-- Router Outlet to Display Components -->
 <div class="content">
-  <router-outlet></router-outlet>  <!-- This is crucial for displaying child routes -->
+  <router-outlet></router-outlet>
 </div>

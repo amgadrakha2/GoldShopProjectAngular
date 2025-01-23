@@ -21,9 +21,14 @@
       <input matInput formControlName="price" type="number" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>النقاء</mat-label>
-      <input matInput formControlName="purity" type="number" required />
+      <mat-label>العيار</mat-label>
+      <mat-select formControlName="purity" required>
+        <mat-option *ngFor="let value of purityOptions" [value]="value">
+          {{ value }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
     <mat-form-field>
       <mat-label>الباركود التلقائي</mat-label>
       <input matInput formControlName="autoBarcode" required />
@@ -79,7 +84,7 @@
 
     <!-- عمود النقاء -->
     <ng-container matColumnDef="purity">
-      <th mat-header-cell *matHeaderCellDef>النقاء</th>
+      <th mat-header-cell *matHeaderCellDef>العيار</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewPurity">
           <input matInput [(ngModel)]="editingItem.purity" class="inline-input" type="number" placeholder="النقاء" />

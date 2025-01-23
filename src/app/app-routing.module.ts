@@ -2,13 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/Account/login/login.component';
 import { RegisterComponent } from './components/Account/register/register.component';
-import { UserComponent } from './components/user/user.component';
 import { authGuard } from './guards/auth.guard';
-import { ClientComponent } from './components/client/client.component';
-import { ItemComponent } from './components/item/item.component';
-import { SettingsComponent } from './components/settings/settings.component';
-import { OrderComponent } from './components/order/order.component';
-import { ReportComponent } from './components/report/report.component';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
@@ -18,19 +12,18 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [authGuard], // Add the auth guard here
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'order', pathMatch: 'full' },
-      { path: 'order', component: OrderComponent},
-      { path: 'client', component: ClientComponent },
-      { path: 'item', component: ItemComponent },
-      { path: 'report', component: ReportComponent },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'order', loadChildren: () => import('./modules/order/order.module').then(m => m.OrderModule) },
+      { path: 'client', loadChildren: () => import('./modules/client/client.module').then(m => m.ClientModule) },
+      { path: 'item', loadChildren: () => import('./modules/item/item.module').then(m => m.ItemModule) },
+      { path: 'report', loadChildren: () => import('./modules/report/report.module').then(m => m.ReportModule) },
+      { path: 'settings', loadChildren: () => import('./modules/settings/settings.module').then(m => m.SettingsModule) },
     ],
   },
   { path: '**', redirectTo: 'login' },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

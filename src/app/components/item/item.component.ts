@@ -15,6 +15,7 @@ export class ItemComponent implements OnInit {
   addItemForm: FormGroup;
   editingItemId: number | null = null;
   editingItem: Partial<Item> = {};
+  purityOptions: number[] = [18, 21, 22, 24];
 
   constructor(private itemService: ItemService, private fb: FormBuilder) {
     this.addItemForm = this.fb.group({
