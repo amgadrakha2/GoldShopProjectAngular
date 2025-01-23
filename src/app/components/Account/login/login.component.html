@@ -5,12 +5,13 @@
       <!-- Username Field -->
       <mat-form-field class="full-width">
         <mat-label>اسم المستخدم</mat-label>
-        <input
-          matInput
-          formControlName="username"
-          required
-        />
-        <mat-error *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched">
+        <input matInput formControlName="username" required />
+        <mat-error
+          *ngIf="
+            form.get('username')?.hasError('required') &&
+            form.get('username')?.touched
+          "
+        >
           يجب إدخال اسم المستخدم.
         </mat-error>
       </mat-form-field>
@@ -24,7 +25,12 @@
           type="password"
           required
         />
-        <mat-error *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
+        <mat-error
+          *ngIf="
+            form.get('password')?.hasError('required') &&
+            form.get('password')?.touched
+          "
+        >
           يجب إدخال كلمة المرور.
         </mat-error>
       </mat-form-field>
@@ -41,6 +47,11 @@
         </button>
       </div>
     </form>
+
+    <!-- Display Login Messages -->
+    <div *ngIf="message" class="login-message">
+      <p>{{ message }}</p>
+    </div>
 
     <!-- Register Redirect Text -->
     <div class="register-redirect">
