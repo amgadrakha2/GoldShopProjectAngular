@@ -42,8 +42,8 @@ pnpm-debug.log*
 *.log
 
 # Environment files
-/src/environments/environment*.ts
-!.env.example
+!/src/environments/environment.ts
+!/src/environments/environment.prod.ts
 
 # Sass cache
 .sass-cache/
