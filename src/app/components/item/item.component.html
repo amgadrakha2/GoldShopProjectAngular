@@ -1,12 +1,12 @@
 <div class="item-container" dir="rtl">
-    <mat-form-field>
-      <mat-label>البحث بالاسم</mat-label>
-      <input matInput [(ngModel)]="searchName" placeholder="أدخل اسم العنصر" />
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="searchItem()">بحث</button>
-    <button mat-raised-button color="accent" (click)="resetItems()">إعادة تعيين</button>
+  <mat-form-field>
+    <mat-label>البحث بالاسم</mat-label>
+    <input matInput [(ngModel)]="searchName" placeholder="أدخل اسم العنصر" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="searchItem()">بحث</button>
+  <button mat-raised-button color="accent" (click)="resetItems()">إعادة تعيين</button>
 
-  <!-- نموذج إضافة عنصر -->
+  <!-- Add Item Form -->
   <form [formGroup]="addItemForm" class="item-form" (ngSubmit)="addItem()">
     <mat-form-field>
       <mat-label>الاسم</mat-label>
@@ -28,7 +28,6 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
     <mat-form-field>
       <mat-label>الباركود التلقائي</mat-label>
       <input matInput formControlName="autoBarcode" required />
@@ -36,9 +35,9 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="addItemForm.invalid">إضافة</button>
   </form>
 
-  <!-- جدول العناصر -->
+  <!-- Items Table -->
   <table mat-table [dataSource]="items" class="mat-elevation-z8">
-    <!-- عمود الاسم -->
+    <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>الاسم</th>
       <td mat-cell *matCellDef="let item">
@@ -49,7 +48,7 @@
       </td>
     </ng-container>
 
-    <!-- عمود الباركود التلقائي -->
+    <!-- Auto Barcode Column -->
     <ng-container matColumnDef="autoBarcode">
       <th mat-header-cell *matHeaderCellDef>الباركود التلقائي</th>
       <td mat-cell *matCellDef="let item">
@@ -60,7 +59,7 @@
       </td>
     </ng-container>
 
-    <!-- عمود الوزن -->
+    <!-- Weight Column -->
     <ng-container matColumnDef="weight">
       <th mat-header-cell *matHeaderCellDef>الوزن</th>
       <td mat-cell *matCellDef="let item">
@@ -71,7 +70,7 @@
       </td>
     </ng-container>
 
-    <!-- عمود السعر -->
+    <!-- Price Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef>السعر</th>
       <td mat-cell *matCellDef="let item">
@@ -82,7 +81,7 @@
       </td>
     </ng-container>
 
-    <!-- عمود النقاء -->
+    <!-- Purity Column -->
     <ng-container matColumnDef="purity">
       <th mat-header-cell *matHeaderCellDef>العيار</th>
       <td mat-cell *matCellDef="let item">
@@ -93,7 +92,7 @@
       </td>
     </ng-container>
 
-    <!-- عمود الإجراءات -->
+    <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>الإجراءات</th>
       <td mat-cell *matCellDef="let item">

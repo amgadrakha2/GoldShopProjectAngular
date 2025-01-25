@@ -36,7 +36,7 @@ export class ItemComponent implements OnInit {
     this.itemService.getAllItems().subscribe({
       next: (data) => (this.items = data),
       error: (err) => {
-        this.errorMessage = `Error fetching items: ${err.message}`;
+        this.errorMessage = `حدث خطأ أثناء جلب العناصر: ${err.message}`;
         console.error(err);
       },
     });
@@ -49,19 +49,24 @@ export class ItemComponent implements OnInit {
       next: (addedItem) => {
         this.items.push(addedItem);
         this.addItemForm.reset();
-        alert('Item added successfully!');
+        alert('تمت إضافة العنصر بنجاح!');
       },
       error: (err) => {
-        this.errorMessage = `Error adding item: ${err.message}`;
+        if (err.message.includes('An item with the same name already exists.')) {
+          this.errorMessage = 'عنصر بنفس الاسم موجود بالفعل.';
+        } else {
+          this.errorMessage = `حدث خطأ أثناء إضافة العنصر: ${err.message}`;
+        }
         console.error(err);
       },
     });
+    this.resetItems();
   }
 
   // Search items by name
   searchItem(): void {
     if (!this.searchName.trim()) {
-      alert('Please enter a valid name to search!');
+      alert('الرجاء إدخال اسم صحيح للبحث!');
       return;
     }
 
@@ -70,9 +75,9 @@ export class ItemComponent implements OnInit {
         this.items = [item]; // Replace the list with the found item
       },
       error: (err) => {
-        this.errorMessage = `Error searching item: ${err.message}`;
+        this.errorMessage = `حدث خطأ أثناء البحث عن العنصر: ${err.message}`;
         console.error(err);
-        alert('No item found with the given name.');
+        alert('لم يتم العثور على عنصر بالاسم المحدد.');
       },
     });
   }
@@ -90,8 +95,10 @@ export class ItemComponent implements OnInit {
     if (item) {
       this.editingItem = { ...item }; // Clone the item for editing
     }
+    this.resetItems();
   }
 
+  // Save edited item
   saveItemEdit(): void {
     if (this.editingItemId !== null) {
       const updatedItem = this.editingItem as Item;
@@ -101,7 +108,7 @@ export class ItemComponent implements OnInit {
           if (index !== -1) {
             this.items[index] = updatedItem; // Update the local list
           }
-          alert('Item updated successfully!');
+          alert('تم تحديث العنصر بنجاح!');
           this.editingItemId = null;
           this.editingItem = {};
 
@@ -109,13 +116,16 @@ export class ItemComponent implements OnInit {
           this.resetItems(); // Reset search and fetch all items again
         },
         error: (err) => {
-          this.errorMessage = `Error updating item: ${err.message}`;
+          if (err.message.includes('An item with the same name already exists.')) {
+            this.errorMessage = 'عنصر بنفس الاسم موجود بالفعل.';
+          } else {
+            this.errorMessage = `حدث خطأ أثناء تحديث العنصر: ${err.message}`;
+          }
           console.error(err);
         },
       });
     }
   }
-
 
   // Cancel editing
   cancelEdit(): void {
@@ -128,12 +138,13 @@ export class ItemComponent implements OnInit {
     this.itemService.deleteItem(itemId).subscribe({
       next: () => {
         this.items = this.items.filter((item) => item.id !== itemId);
-        alert('Item deleted successfully!');
+        alert('تم حذف العنصر بنجاح!');
       },
       error: (err) => {
-        this.errorMessage = `Error deleting item: ${err.message}`;
+        this.errorMessage = `حدث خطأ أثناء حذف العنصر: ${err.message}`;
         console.error(err);
       },
     });
+    this.resetItems();
   }
 }

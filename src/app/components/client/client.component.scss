@@ -1,7 +1,33 @@
-header {
-  display: flex;
-  justify-content: flex-end; /* Align content to the right */
+/* Apply styles to mat-form-field inside .client-container */
+::ng-deep .client-container {
+  .mat-form-field {
+    background-color: white; /* White background */
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: gold; /* Gold outline */
+  }
+
+  .mat-form-field-label {
+    color: gold; /* Gold label */
+  }
+
+  .mat-input-element {
+    color: white; /* Black text inside the input */
+  }
+
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: gold; /* Gold outline when focused */
+  }
+
+  .mat-form-field.mat-focused .mat-form-field-label {
+    color: #ffc107; /* Gold label when focused */
+  }
 }
+
+/* Existing styles for other elements */
 .table-container {
   overflow-x: auto;
 }
@@ -14,37 +40,11 @@ header {
   padding: 0;
   font-size: inherit;
   font-family: inherit;
+  color: red; /* Set text color to red */
 }
 
 .inline-input:focus {
-  border-bottom: 2px solid #3f51b5; /* Primary color for focus */
-}
-
-.mat-cell {
-  padding: 8px; /* Adjust padding to match the table cell */
-  vertical-align: middle;
-}
-
-.mat-header-cell, .mat-cell {
-  text-align: left;
-}
-
-table {
-  width: 100%;
-}
-.inline-input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 0;
-  font-size: inherit;
-  font-family: inherit;
-  color: red;  /* Set text color to white */
-}
-
-.inline-input:focus {
-  border-bottom: 2px solid #3f51b5; /* Primary color for focus */
+  border-bottom: 2px solid #ffc107; /* Gold border on focus */
 }
 
 .mat-cell {
@@ -67,12 +67,6 @@ table {
   justify-content: flex-end; /* Aligns content to the right */
 }
 
-
-.search-container {
-  display: flex;
-  align-items: center; /* Align items vertically */
-}
-
 .search-container .mat-raised-button {
   height: 50px !important;
   line-height: 50px !important;
@@ -80,12 +74,6 @@ table {
   padding: 0 20px !important;
 }
 
-table {
-  padding: 0; /* Remove any padding from the table */
-}
-
 .mat-elevation-z8 {
   margin-top: 0; /* Ensure the table's shadow margin doesn't add spacing */
 }
-
-

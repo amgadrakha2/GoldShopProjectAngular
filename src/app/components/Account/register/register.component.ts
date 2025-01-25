@@ -17,8 +17,19 @@ export class RegisterComponent {
   constructor(private userService: UserService, private router: Router) {}
 
   registerUser(): void {
+    // Reset error and success messages
+    this.errorMessage = '';
+    this.message = '';
+
+    // Validate general inputs
     if (!this.validateInputs()) {
-      this.errorMessage = 'Please fill all required fields.';
+      this.errorMessage = 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح.';
+      return;
+    }
+
+    // Validate phone number
+    if (!this.validatePhoneNumber()) {
+      this.errorMessage = 'يجب إدخال 11 رقمًا.'; // Arabic message for 11 digits
       return;
     }
 
@@ -26,7 +37,7 @@ export class RegisterComponent {
 
     this.userService.register(this.user).subscribe({
       next: (response) => {
-        this.message = 'Registration successful! Redirecting to login...';
+        this.message = 'تم التسجيل بنجاح! يتم التوجيه إلى صفحة تسجيل الدخول...';
         console.log(response.message);
         setTimeout(() => {
           this.router.navigate(['/login']);
@@ -34,7 +45,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Error:', err);
-        this.errorMessage = err?.error?.message || 'An unexpected error occurred.';
+        this.errorMessage = err?.error?.message || 'حدث خطأ غير متوقع.';
       },
       complete: () => {
         this.isLoading = false; // Stop loading
@@ -43,6 +54,15 @@ export class RegisterComponent {
   }
 
   private validateInputs(): boolean {
-    return this.user.userName.trim() !== '' && this.user.password.trim() !== '' && this.user.phoneNumber.trim() !== '';
+    return (
+      this.user.userName.trim() !== '' &&
+      this.user.password.trim() !== '' &&
+      this.user.phoneNumber.trim() !== ''
+    );
+  }
+
+  private validatePhoneNumber(): boolean {
+    const phoneNumber = this.user.phoneNumber.trim();
+    return phoneNumber.length === 11 && /^\d+$/.test(phoneNumber);
   }
 }

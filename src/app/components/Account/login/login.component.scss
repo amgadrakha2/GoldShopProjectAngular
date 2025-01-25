@@ -1,51 +1,202 @@
 .login-container {
-  background-color: #cdb89d; /* Sets the background color */
-  border-radius: 8px; /* Rounds the corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
-  padding: 16px; /* Adds internal spacing */
-  max-width: 400px; /* Sets a maximum width for the card */
-  margin: 20px auto; /* Centers the card horizontally and adds vertical spacing */
-}
-.register-redirect {
-  text-align: center;
-  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.register-redirect a {
-  color: #3f51b5; /* Customize color */
+.login-card {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+.login-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.login-form .form-group {
+  margin-bottom: 15px;
+}
+
+.login-form .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: black;
+}
+
+.login-form .form-group input {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: right;
+}
+
+.login-form .form-group .error-message {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.login-button {
+  background-color: #ffc107;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #ffca28;
+}
+
+.login-button:disabled {
+  background-color: #ffe082;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: not-allowed;
+}
+
+.login-message {
+  text-align: center;
+  margin-top: 20px;
+  color: #d32f2f;
+}
+
+.register-redirect {
+  text-align: center;
+  margin-top: 20px;
+  color: black;
+}
+
+.register-link {
+  color: #ffc107;
   text-decoration: none;
 }
 
-mat-card {
-  width: 400px;
-  padding: 20px;
+.register-link:hover {
+  text-decoration: underline;
 }
 
-.full-width {
-  width: 100%;
-}
-
-.button-container {
+.headergold {
   text-align: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.message {
-  margin-top: 20px;
-  color: green;
+.headergold h1.gold-title {
+  font-size: 60px;
   font-weight: bold;
+  color: #ffc107;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 0;
 }
 
-:host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  background-image: url('/assets/Imges/back.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.headergold p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  margin: 10px 0 0;
 }
 
+@media (max-width: 1200px) {
+  .headergold h1.gold-title {
+    font-size: 70px;
+  }
 
+  .headergold p {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 992px) {
+  .headergold h1.gold-title {
+    font-size: 70px;
+  }
+
+  .headergold p {
+    font-size: 20px;
+  }
+
+  .login-container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  .login-card {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    justify-content: center;
+  }
+
+  .headergold h1.gold-title {
+    font-size: 60px;
+  }
+
+  .headergold p {
+    font-size: 18px;
+  }
+
+  .login-card {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    justify-content: center;
+  }
+
+  .headergold h1.gold-title {
+    font-size: 50px;
+  }
+
+  .headergold p {
+    font-size: 12px;
+  }
+
+  .login-card {
+    width: 85%;
+    padding: 15px;
+  }
+
+  .login-form .form-group input {
+    font-size: 14px;
+  }
+
+  .login-button {
+    font-size: 14px;
+  }
+}

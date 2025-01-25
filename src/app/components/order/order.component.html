@@ -67,19 +67,19 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- العناصر -->
+    <!-- المنتجات-->
     <mat-card class="itemforms">
       <mat-card-content formArrayName="items">
         <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-group">
           <div class="item-fields-container">
             <mat-form-field appearance="outline">
-              <mat-label>اسم العنصر</mat-label>
+              <mat-label>اسم المنتج</mat-label>
               <input
                 matInput
                 formControlName="name"
                 [matAutocomplete]="auto"
                 (input)="filterItems($event, i)"
-                placeholder="أدخل أو اختر اسم العنصر" />
+                placeholder="أدخل أو اختر اسم المنتج" />
               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onItemNameSelected($event.option.value, i)">
                 <mat-option *ngFor="let option of filteredItems[i]" [value]="option.name">
                   {{ option.name }}
@@ -101,7 +101,7 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>النقاء</mat-label>
+              <mat-label>العيار</mat-label>
               <input matInput type="number" formControlName="purity" placeholder="أدخل النقاء" />
               <mat-error *ngIf="items.at(i).get('purity')?.invalid">النقاء مطلوب وصحيح.</mat-error>
             </mat-form-field>

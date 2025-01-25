@@ -53,6 +53,7 @@ export class ClientComponent implements OnInit { // updated class name
         console.error(err);
       },
     });
+    this.resetClients();
   }
 
   // Search clients by name
@@ -77,7 +78,7 @@ export class ClientComponent implements OnInit { // updated class name
   // Reset clients to show all clients
   resetClients(): void {
     this.searchName = '';
-    this.getClients(); // Fetch all clients again
+    this.getClients();
   }
 
   // Start editing a client
@@ -87,6 +88,7 @@ export class ClientComponent implements OnInit { // updated class name
     if (client) {
       this.editingClient = { ...client }; // Clone the client for editing
     }
+    this.resetClients();
   }
 
   // Save edited client
@@ -132,5 +134,6 @@ export class ClientComponent implements OnInit { // updated class name
         console.error(err);
       },
     });
+    this.resetClients();
   }
 }

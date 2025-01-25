@@ -1,12 +1,13 @@
-
-
 .navbar {
   font-family: 'Droid Arabic Naskh', serif;
-  font-weight: bold; 
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 0 20px;
+  background-color: #ffc107; // Gold background for the toolbar
+  color: white; // Black text for better contrast
 
   .navbar-links {
     display: flex;
@@ -15,18 +16,20 @@
 
     a,
     button.settings-icon {
-      color: white;
+      color: white; // Black text for links and buttons
       text-decoration: none;
       font-size: 16px;
 
       &.active-link {
-        border-bottom: 2px solid white;
+        border-bottom: 2px solid white; // Black underline for active links
       }
     }
   }
 
   .logout-button {
     font-weight: bold;
+    background-color: #d32f2f; // Red background for logout button
+    color: white; // White text for logout button
   }
 }
 

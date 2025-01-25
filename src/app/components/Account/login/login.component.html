@@ -1,51 +1,56 @@
-<div class="login-container">
-  <mat-card-content>
-    <!-- Login Form -->
-    <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
-      <!-- Username Field -->
-      <mat-form-field class="full-width">
-        <mat-label>اسم المستخدم</mat-label>
-        <input
-          matInput
-          formControlName="username"
-          required
-        />
-        <mat-error *ngIf="form.get('username')?.hasError('required') && form.get('username')?.touched">
-          يجب إدخال اسم المستخدم.
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Password Field -->
-      <mat-form-field class="full-width">
-        <mat-label>كلمة المرور</mat-label>
-        <input
-          matInput
-          formControlName="password"
-          type="password"
-          required
-        />
-        <mat-error *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched">
-          يجب إدخال كلمة المرور.
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Submit Button -->
-      <div class="form-actions">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="form.invalid"
-        >
-          تسجيل الدخول
-        </button>
-      </div>
-    </form>
-
-    <!-- Register Redirect Text -->
-    <div class="register-redirect">
-      <span>إذا لم يكن لديك حساب، </span>
-      <a mat-button routerLink="/register">سجل الآن</a>
+  <div class="login-container">
+    <div class="headergold">
+      <h1 class="gold-title">مجد الذهب</h1>
+      <br>
+      <br>
+      <p>
+        لتجارة الذهب والمجوهرات
+      </p>
     </div>
-  </mat-card-content>
-</div>
+    <div class="login-card">
+      <h2>تسجيل الدخول </h2>
+      <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
+        <!-- Username Field -->
+        <div class="form-group">
+          <label for="username">اسم المستخدم</label>
+          <div class="input-with-icon">
+            <i class="fas fa-user"></i> <!-- Font Awesome icon -->
+            <input type="text" id="username" formControlName="username" required />
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            required
+          />
+          <div *ngIf="form.get('password')?.hasError('required') && form.get('password')?.touched" class="error-message">
+            يرجى إدخال كلمة المرور.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button type="submit" [disabled]="form.invalid || isLoading" class="login-button">
+            <span *ngIf="!isLoading">تسجيل الدخول</span>
+            <span *ngIf="isLoading" class="spinner"></span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Display Login Messages -->
+      <div *ngIf="message" class="login-message">
+        <p>{{ message }}</p>
+      </div>
+
+      <!-- Register Redirect Text -->
+      <div class="register-redirect">
+        <span>إذا لم يكن لديك حساب، </span>
+        <a routerLink="/register" class="register-link">سجل الآن</a>
+      </div>
+    </div>
+  </div>

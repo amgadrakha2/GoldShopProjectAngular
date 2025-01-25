@@ -206,29 +206,36 @@ export class OrderComponent implements OnInit , OnDestroy {
   }
 
   resetForm(): void {
+    // Clear the items FormArray
+    while (this.items.length !== 0) {
+      this.items.removeAt(0);
+    }
+
+    // Reset the form values
     this.orderForm.reset({
       client: {
         name: '',
         address: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        date: this.getCurrentDate(), // Reset date to current date
+        time: this.getCurrentTimeWithOffset() // Reset time to current time
       },
       orderType: 'Standard',
       employeeName: '',
       delay: '',
       totalWeight: 0,
       totalPrice: 0,
-      date: this.getCurrentDate(), // Update to always fetch the current date
-      time: this.getCurrentTimeWithOffset(),
       items: []
     });
 
-    this.items.clear();
+    // Clear the filteredItems array
     this.filteredItems = [];
+
+    // Mark the form as pristine and untouched
     this.orderForm.markAsPristine();
     this.orderForm.markAsUntouched();
     this.orderForm.updateValueAndValidity();
   }
-
   onSubmit(): void {
     this.updateTotals();
 
