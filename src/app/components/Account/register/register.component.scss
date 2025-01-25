@@ -1,16 +1,19 @@
+/* Shared Styles */
+.login-container,
 .register-container {
   display: flex;
-  width: 100%;
   justify-content: space-around;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
   height: 100vh;
   background-color: #fff;
   font-family: 'Tajawal', sans-serif;
   direction: rtl;
-  gap: 20px;
-  flex-wrap: wrap;
 }
 
+.login-card,
 form {
   background-color: #fff;
   padding: 20px;
@@ -19,25 +22,38 @@ form {
   width: 100%;
   max-width: 400px;
   animation: fadeIn 0.5s ease-in-out;
-
 }
 
+.login-card h2,
+form h2,
+.headergold h1.gold-title,
+.headergold p,
+.login-form .form-group label,
+.register-form .form-group label,
+.login-redirect,
+.register-redirect {
+  color: black;
+  text-align: center;
+}
+
+.login-card h2,
 form h2 {
   margin-bottom: 20px;
-  color: black;
 }
 
+.login-form .form-group,
 .register-form .form-group {
   margin-bottom: 15px;
 }
 
+.login-form .form-group label,
 .register-form .form-group label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: black;
 }
 
+.login-form .form-group input,
 .register-form .form-group input {
   width: 95%;
   padding: 10px;
@@ -47,6 +63,7 @@ form h2 {
   text-align: right;
 }
 
+.login-form .form-group .error-message,
 form .form-group .error-message {
   color: #d32f2f;
   font-size: 14px;
@@ -60,6 +77,7 @@ form .form-group .error-message {
   margin-top: 20px;
 }
 
+.login-button,
 .register-button {
   background-color: #ffc107;
   color: #fff;
@@ -70,39 +88,42 @@ form .form-group .error-message {
   cursor: pointer;
 }
 
+.login-button:hover,
 .register-button:hover {
   background-color: #ffca28;
 }
 
+.login-button:disabled,
 .register-button:disabled {
   background-color: #ffe082;
   color: rgba(255, 255, 255, 0.7);
   cursor: not-allowed;
 }
 
+.login-message,
 .register-message {
   text-align: center;
   margin-top: 20px;
   color: #d32f2f;
 }
 
-.login-redirect {
-  text-align: center;
+.login-redirect,
+.register-redirect {
   margin-top: 20px;
-  color: black;
 }
 
-.login-link {
+.login-link,
+.register-link {
   color: #ffc107;
   text-decoration: none;
 }
 
-.login-link:hover {
+.login-link:hover,
+.register-link:hover {
   text-decoration: underline;
 }
 
 .headergold {
-  text-align: center;
   margin-bottom: 20px;
 }
 
@@ -117,7 +138,6 @@ form .form-group .error-message {
 .headergold p {
   font-size: 20px;
   font-weight: bold;
-  color: #333;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   margin: 10px 0 0;
 }
@@ -149,6 +169,7 @@ form .form-group .error-message {
   }
 }
 
+/* Responsive Styles */
 @media (max-width: 1200px) {
   .headergold h1.gold-title {
     font-size: 70px;
@@ -168,7 +189,15 @@ form .form-group .error-message {
     font-size: 20px;
   }
 
+  .login-container,
   .register-container {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
+
+  .login-card,
+  form {
     margin-top: 20px;
   }
 }
@@ -182,7 +211,8 @@ form .form-group .error-message {
     font-size: 18px;
   }
 
-  .register-container {
+  .login-card,
+  form {
     width: 90%;
   }
 }
@@ -196,15 +226,18 @@ form .form-group .error-message {
     font-size: 12px;
   }
 
-  .register-container {
+  .login-card,
+  form {
     width: 85%;
     padding: 15px;
   }
 
+  .login-form .form-group input,
   .register-form .form-group input {
     font-size: 14px;
   }
 
+  .login-button,
   .register-button {
     font-size: 14px;
   }
