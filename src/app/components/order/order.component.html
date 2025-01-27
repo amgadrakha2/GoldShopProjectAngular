@@ -116,7 +116,7 @@
             </button>
           </div>
         </div>
-        <button mat-mini-fab color="primary" (click)="addItem()">
+        <button class="createbtn" mat-mini-fab (click)="addItem()">
           <mat-icon>add</mat-icon>
         </button>
       </mat-card-content>
@@ -126,7 +126,7 @@
       <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">
         إرسال الطلب
       </button>
-      <button mat-raised-button color="accent" type="button" (click)="onNewOrder()">طلب جديد</button>
+      <button class="createbtn" mat-raised-button color="accent" type="button" (click)="onNewOrder()">طلب جديد</button>
     </div>
     <mat-error *ngIf="orderForm.get('items')?.hasError('minLength')">
       يجب اختيار منتج واحد على الأقل.

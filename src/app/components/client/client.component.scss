@@ -1,79 +1,109 @@
-/* Apply styles to mat-form-field inside .client-container */
-::ng-deep .client-container {
-  .mat-form-field {
-    background-color: white; /* White background */
-    border-radius: 4px;
-    padding: 8px;
-  }
+.client-container {
+  font-family: Arial, sans-serif;
+  margin-top: 15px;
+  width: 100%;
 
-  .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: gold; /* Gold outline */
-  }
-
-  .mat-form-field-label {
-    color: gold; /* Gold label */
-  }
-
-  .mat-input-element {
-    color: white; /* Black text inside the input */
-  }
-
-  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: gold; /* Gold outline when focused */
-  }
-
-  .mat-form-field.mat-focused .mat-form-field-label {
-    color: #ffc107; /* Gold label when focused */
-  }
 }
 
-/* Existing styles for other elements */
-.table-container {
-  overflow-x: auto;
+.search-section {
+  display: flex;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds shadow */
+  margin-bottom: 20px;}
+
+.search-section input {
+  height: 40px; /* Increased height */
+  padding: 10px; /* Adjusted padding */
+  font-size: 16px; /* Adjusted font size */
+  border: 1px solid #ccc; /* Optional border */
+  border-radius: 4px; /* Optional rounded corners */
+  box-sizing: border-box; /* Ensures padding is included in height */
+
+}
+
+.search-section button {
+  padding: 5px 10px; /* Adjusted padding for buttons */
+  font-size: 16px; /* Adjusted font size for buttons */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-section .btn-primary {
+  background-color: #ffc107; /* Primary button color */
+  color: white;
+}
+
+.search-section .btn-accent {
+  background-color: #6c757d; /* Accent button color */
+  color: white;
+}
+
+.client-form {
+  margin-bottom:15px ;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds shadow */
+}
+
+.form-row {
+  display: flex;
+  gap: 10px; /* Adds spacing between inputs */
+  align-items: flex-end; /* Aligns items at the bottom */
+}
+
+.form-group {
+  flex: 1; /* Ensures all inputs take equal space */
+  margin-bottom: 10px;
+}
+
+.client-form input{
+  height: 40px !important; /* Increased height */
+ /* Adjusted padding */
+  font-size: 16px; /* Adjusted font size */
+  border: 1px solid #ccc; /* Optional border */
+  border-radius: 4px; /* Optional rounded corners */
+  box-sizing: border-box;
+}
+
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.addClientForm .btn-primary{
+
+  background-color: #ffc107 !important; /* Primary button color */
+  color: white;
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.clients-table th, .clients-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: right;
+}
+
+.clients-table th {
+  background-color: #f4f4f4;
 }
 
 .inline-input {
   width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 0;
-  font-size: inherit;
-  font-family: inherit;
-  color: red; /* Set text color to red */
+  padding: 5px;
+  box-sizing: border-box;
 }
 
-.inline-input:focus {
-  border-bottom: 2px solid #ffc107; /* Gold border on focus */
+button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
 }
 
-.mat-cell {
-  padding: 8px; /* Adjust padding to match the table cell */
-  vertical-align: middle;
-}
-
-.mat-header-cell, .mat-cell {
-  text-align: left;
-}
-
-table {
-  width: 100%;
-}
-
-.search-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 0;
-  justify-content: flex-end; /* Aligns content to the right */
-}
-
-.search-container .mat-raised-button {
-  height: 50px !important;
-  line-height: 50px !important;
-  font-size: 16px;
-  padding: 0 20px !important;
-}
-
-.mat-elevation-z8 {
-  margin-top: 0; /* Ensure the table's shadow margin doesn't add spacing */
-}

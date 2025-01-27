@@ -43,17 +43,16 @@ export class ClientComponent implements OnInit { // updated class name
   addClient(): void {
     const newClient: Client = this.addClientForm.value;
     this.clientService.addClient(newClient).subscribe({
-      next: (addedClient) => {
-        this.clients.push(addedClient);
+      next: (response) => {
+        alert(response); // Show the success message
+        this.getClients(); // Refresh the list of clients
         this.addClientForm.reset();
-        alert('Client added successfully!');
       },
       error: (err) => {
         this.errorMessage = `Error adding client: ${err.message}`;
         console.error(err);
       },
     });
-    this.resetClients();
   }
 
   // Search clients by name

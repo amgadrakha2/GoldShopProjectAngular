@@ -1,37 +1,38 @@
 <div class="item-container" dir="rtl">
-  <mat-form-field>
-    <mat-label>البحث بالاسم</mat-label>
-    <input matInput [(ngModel)]="searchName" placeholder="أدخل اسم العنصر" />
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="searchItem()">بحث</button>
-  <button mat-raised-button color="accent" (click)="resetItems()">إعادة تعيين</button>
+  <!-- Search Section -->
+  <div class="search-section">
+    <label for="searchName">البحث بالاسم</label>
+    <input id="searchName" type="text" [(ngModel)]="searchName" placeholder="أدخل اسم العنصر" />
+    <button class="search-button" type="submit" (click)="searchItem()">بحث</button>
+    <button class="restart-button" type="button" (click)="resetItems()">إعادة تعيين</button>
+  </div>
 
   <!-- Add Item Form -->
   <form [formGroup]="addItemForm" class="item-form" (ngSubmit)="addItem()">
-    <mat-form-field>
-      <mat-label>الاسم</mat-label>
-      <input matInput formControlName="name" required />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>الوزن</mat-label>
-      <input matInput formControlName="weight" type="number" required />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>السعر</mat-label>
-      <input matInput formControlName="price" type="number" required />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>العيار</mat-label>
-      <mat-select formControlName="purity" required>
-        <mat-option *ngFor="let value of purityOptions" [value]="value">
-          {{ value }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>الباركود التلقائي</mat-label>
-      <input matInput formControlName="autoBarcode" required />
-    </mat-form-field>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="name">الاسم</label>
+        <input id="name" type="text" formControlName="name" required />
+      </div>
+      <div class="form-group">
+        <label for="weight">الوزن</label>
+        <input id="weight" type="number" formControlName="weight" required />
+      </div>
+      <div class="form-group">
+        <label for="price">السعر</label>
+        <input id="price" type="number" formControlName="price" required />
+      </div>
+      <div class="form-group">
+        <label for="purity">العيار</label>
+        <select id="purity" formControlName="purity" required>
+          <option *ngFor="let value of purityOptions" [value]="value">{{ value }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="autoBarcode">الباركود التلقائي</label>
+        <input id="autoBarcode" type="text" formControlName="autoBarcode" required />
+      </div>
+    </div>
     <button mat-raised-button color="primary" type="submit" [disabled]="addItemForm.invalid">إضافة</button>
   </form>
 

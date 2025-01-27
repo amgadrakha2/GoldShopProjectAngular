@@ -220,7 +220,7 @@ export class OrderComponent implements OnInit , OnDestroy {
         date: this.getCurrentDate(), // Reset date to current date
         time: this.getCurrentTimeWithOffset() // Reset time to current time
       },
-      orderType: 'Standard',
+      orderType: '',
       employeeName: '',
       delay: '',
       totalWeight: 0,

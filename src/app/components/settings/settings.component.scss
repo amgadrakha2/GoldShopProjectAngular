@@ -1,26 +1,13 @@
 .settings-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
 
-  .settings-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  .form-control {
+    width: 100%;
   }
 
-  .purity-input {
-    width: 200px;
-    margin-right: 10px;
-  }
-
-  .save-button {
-    height: 36px;
-  }
-
-  .loading-container,
-  .no-data-container {
-    text-align: center;
-    margin-top: 20px;
+  .btn-warning {
+    background-color:  #ffc107;
+    border-color:  #ffc107;
+    color: white;
   }
 }

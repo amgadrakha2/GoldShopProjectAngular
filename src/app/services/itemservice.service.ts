@@ -15,17 +15,23 @@ export class ItemService {
 
   // Add a new item
   addItem(item: Item): Observable<Item> {
-    return this.http.post<Item>(`${this.apiUrl}`, item);
+    return this.http.post<Item>(this.apiUrl, item).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Get an item by ID
   getItemById(id: number): Observable<Item> {
-    return this.http.get<Item>(`${this.apiUrl}/${id}`);
+    return this.http.get<Item>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Get an item by name
   getItemByName(itemName: string): Observable<Item> {
-    return this.http.get<Item>(`${this.apiUrl}/getByName/${itemName}`);
+    return this.http.get<Item>(`${this.apiUrl}/getByName/${itemName}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Get all items
@@ -35,11 +41,6 @@ export class ItemService {
     );
   }
 
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    console.error('Error fetching data:', error);
-    return throwError(() => new Error('Error fetching data. Please try again later.'));
-  }
-
   // Update an existing item
   updateItem(id: number, item: Item): Observable<{ message: string }> {
     return this.http.put<{ message: string }>(`${this.apiUrl}/${id}`, item).pipe(
@@ -47,9 +48,15 @@ export class ItemService {
     );
   }
 
-
   // Delete an item by ID
-  deleteItem(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/${id}`);
+  deleteItem(id: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    console.error('Error fetching data:', error);
+    return throwError(() => new Error('Error fetching data. Please try again later.'));
   }
 }

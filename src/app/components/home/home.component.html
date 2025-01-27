@@ -1,25 +1,18 @@
-<mat-toolbar class="navbar">
+<nav class="navbar">
   <!-- Navbar Links -->
   <div class="navbar-links">
-    <a mat-button routerLink="/home/order" routerLinkActive="active-link">الطلبات</a>
-    <a mat-button routerLink="/home/client" routerLinkActive="active-link">العملاء</a>
-    <a mat-button routerLink="/home/item" routerLinkActive="active-link">المنتجات</a>
-    <a mat-button routerLink="/home/report" routerLinkActive="active-link">التقارير</a>
-    <button
-      mat-icon-button
-      routerLink="/home/settings"
-      routerLinkActive="active-link"
-      class="settings-icon"
-    >
-      <mat-icon>settings</mat-icon>
-    </button>
+    <a class="nav-link" routerLink="/home/order" routerLinkActive="active-link">الطلبات</a>
+    <a class="nav-link" routerLink="/home/client" routerLinkActive="active-link">العملاء</a>
+    <a class="nav-link" routerLink="/home/item" routerLinkActive="active-link">المنتجات</a>
+    <a class="nav-link" routerLink="/home/report" routerLinkActive="active-link">التقارير</a>
+    <a class="nav-link settings-icon" routerLink="/home/settings" routerLinkActive="active-link">
+      ⚙️
+    </a>
   </div>
 
   <!-- Logout Button -->
-  <button mat-raised-button class="logout-button" (click)="confirmLogout()">
-    تسجيل الخروج
-  </button>
-</mat-toolbar>
+  <button class="logout-button" (click)="confirmLogout()">تسجيل الخروج</button>
+</nav>
 
 <!-- Router Outlet to Display Components -->
 <div class="content">

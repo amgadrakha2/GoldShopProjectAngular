@@ -41,14 +41,17 @@ export class ItemComponent implements OnInit {
       },
     });
   }
-
   // Add a new item
   addItem(): void {
+    if (this.addItemForm.invalid) {
+      return; // Do not proceed if the form is invalid
+    }
+
     const newItem: Item = this.addItemForm.value;
     this.itemService.addItem(newItem).subscribe({
       next: (addedItem) => {
-        this.items.push(addedItem);
-        this.addItemForm.reset();
+        this.items = [...this.items, addedItem]; // Update the items array immutably
+        this.addItemForm.reset(); // Clear the form
         alert('تمت إضافة العنصر بنجاح!');
       },
       error: (err) => {
@@ -60,7 +63,6 @@ export class ItemComponent implements OnInit {
         console.error(err);
       },
     });
-    this.resetItems();
   }
 
   // Search items by name

@@ -18,33 +18,39 @@ export class LoginComponent {
 
   constructor(private userService: UserService, private router: Router) {}
 
+  ngOnInit(): void {
+    // Listen for input changes in the form fields
+    this.form.valueChanges.subscribe(() => {
+      if (this.isLoading) {
+        this.isLoading = false; // Stop loading if user starts typing
+      }
+    });
+  }
+
   login(): void {
-    // Reset the message
+    console.log('Login method called'); // Debugging
     this.message = '';
 
-    // Validate the form
     if (this.form.invalid) {
+      console.log('Form is invalid'); // Debugging
       this.message = 'يرجى ملء جميع الحقول المطلوبة.';
       return;
     }
 
     this.isLoading = true; // Start loading
+    console.log('Loading started'); // Debugging
 
     const { username, password } = this.form.value;
 
     this.userService.login(username, password).subscribe({
       next: (response) => {
-        // Store token in localStorage
+        console.log('Login successful', response); // Debugging
         localStorage.setItem('authToken', response.token);
-
-        // Display success message
         this.message = 'تم تسجيل الدخول بنجاح.';
-
-        // Navigate to the home page
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        // Handle different error messages based on the server response
+        console.error('Login error', err); // Debugging
         if (err.error?.message === 'اسم المستخدم غير موجود.') {
           this.message = 'اسم المستخدم غير موجود.';
         } else if (err.error?.message === 'كلمة المرور غير صحيحة.') {
@@ -54,6 +60,7 @@ export class LoginComponent {
         }
       },
       complete: () => {
+        console.log('Login complete'); // Debugging
         this.isLoading = false; // Stop loading
       },
     });

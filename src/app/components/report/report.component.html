@@ -1,8 +1,6 @@
 <div class="reports-container">
-  <h1>التقارير</h1>
-
   <!-- Loading Spinner -->
-  <div *ngIf="isLoading">جاري التحميل...</div>
+  <div *ngIf="isLoading" class="loading-spinner">جاري التحميل...</div>
 
   <!-- Error Message -->
   <div *ngIf="isError && !isLoading" class="error-message">
@@ -13,14 +11,17 @@
   <div class="search-section">
     <h2>بحث عن الطلبات</h2>
     <form [formGroup]="searchForm" (ngSubmit)="searchOrders()">
-      <mat-form-field appearance="outline">
-        <mat-label>بحث</mat-label>
-        <input matInput formControlName="searchTerm" placeholder="أدخل اسم العميل أو الهاتف أو العنوان" />
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">بحث</button>
-      <button mat-raised-button color="accent" (click)="restartOrders()">إعادة تشغيل</button>
+      <input
+        type="text"
+        class="search-input"
+        formControlName="searchTerm"
+        placeholder="أدخل اسم العميل أو الهاتف أو العنوان"
+      />
+      <button class="search-button" type="submit">بحث</button>
+      <button class="restart-button" type="button" (click)="restartOrders()">إعادة تعيين</button>
     </form>
   </div>
+
 
   <!-- Orders Table -->
   <div class="table-container">

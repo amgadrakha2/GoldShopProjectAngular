@@ -1,3 +1,74 @@
+.reports-container {
+  padding: 20px;
+  direction: rtl;
+  width: 100%;
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .loading-spinner {
+    text-align: center;
+    font-size: 18px;
+    color: #007bff;
+  }
+
+  .error-message {
+    color: #dc3545;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .search-section {
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+
+      .search-input {
+        flex: 1;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .search-button,
+      .restart-button {
+        padding: 8px 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &.search-button {
+          background-color: #ffc107;
+          color: #fff;
+
+          &:hover {
+            background-color: #e0a800;
+          }
+        }
+
+        &.restart-button {
+          background-color: #6c757d;
+          color: #fff;
+
+          &:hover {
+            background-color: #5a6268;
+          }
+        }
+      }
+    }
+  }
 
 .table-container {
   overflow-x: auto; /* Enable horizontal scroll */
@@ -11,4 +82,5 @@
 .mat-cell {
   min-width: 150px; /* Set minimum width for columns */
   text-align: center; /* Center-align text in cells */
+}
 }
