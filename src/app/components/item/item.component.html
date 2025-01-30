@@ -1,109 +1,99 @@
-<div class="item-container" dir="rtl">
-  <!-- Search Section -->
+<div class="item-container">
   <div class="search-section">
-    <label for="searchName">البحث بالاسم</label>
-    <input id="searchName" type="text" [(ngModel)]="searchName" placeholder="أدخل اسم العنصر" />
-    <button class="search-button" type="submit" (click)="searchItem()">بحث</button>
-    <button class="restart-button" type="button" (click)="resetItems()">إعادة تعيين</button>
+    <input id="searchName" type="text" [(ngModel)]="searchName" placeholder="Enter item name" />
+    <button class="search-button" type="submit" (click)="searchItem()">Search</button>
+    <button class="restart-button" type="button" (click)="resetItems()">Reset</button>
   </div>
 
-  <!-- Add Item Form -->
   <form [formGroup]="addItemForm" class="item-form" (ngSubmit)="addItem()">
     <div class="form-row">
       <div class="form-group">
-        <label for="name">الاسم</label>
+        <label for="name">Name</label>
         <input id="name" type="text" formControlName="name" required />
       </div>
       <div class="form-group">
-        <label for="weight">الوزن</label>
+        <label for="weight">Weight</label>
         <input id="weight" type="number" formControlName="weight" required />
       </div>
       <div class="form-group">
-        <label for="price">السعر</label>
+        <label for="price">Price</label>
         <input id="price" type="number" formControlName="price" required />
       </div>
       <div class="form-group">
-        <label for="purity">العيار</label>
+        <label for="purity">Purity</label>
         <select id="purity" formControlName="purity" required>
           <option *ngFor="let value of purityOptions" [value]="value">{{ value }}</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="autoBarcode">الباركود التلقائي</label>
+        <label for="autoBarcode">Auto Barcode</label>
         <input id="autoBarcode" type="text" formControlName="autoBarcode" required />
       </div>
     </div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="addItemForm.invalid">إضافة</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="addItemForm.invalid">Add</button>
   </form>
 
-  <!-- Items Table -->
   <table mat-table [dataSource]="items" class="mat-elevation-z8">
-    <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>الاسم</th>
+      <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewName">
-          <input matInput [(ngModel)]="editingItem.name" class="inline-input" placeholder="الاسم" />
+          <input matInput [(ngModel)]="editingItem.name" class="inline-input" placeholder="Name" />
         </ng-container>
         <ng-template #viewName>{{ item.name }}</ng-template>
       </td>
     </ng-container>
 
-    <!-- Auto Barcode Column -->
     <ng-container matColumnDef="autoBarcode">
-      <th mat-header-cell *matHeaderCellDef>الباركود التلقائي</th>
+      <th mat-header-cell *matHeaderCellDef>Auto Barcode</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewBarcode">
-          <input matInput [(ngModel)]="editingItem.autoBarcode" class="inline-input" placeholder="الباركود" />
+          <input matInput [(ngModel)]="editingItem.autoBarcode" class="inline-input" placeholder="Barcode" />
         </ng-container>
         <ng-template #viewBarcode>{{ item.autoBarcode }}</ng-template>
       </td>
     </ng-container>
 
-    <!-- Weight Column -->
     <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef>الوزن</th>
+      <th mat-header-cell *matHeaderCellDef>Weight</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewWeight">
-          <input matInput [(ngModel)]="editingItem.weight" class="inline-input" type="number" placeholder="الوزن" />
+          <input matInput [(ngModel)]="editingItem.weight" class="inline-input" type="number" placeholder="Weight" />
         </ng-container>
         <ng-template #viewWeight>{{ item.weight }}</ng-template>
       </td>
     </ng-container>
 
-    <!-- Price Column -->
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>السعر</th>
+      <th mat-header-cell *matHeaderCellDef>Price</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewPrice">
-          <input matInput [(ngModel)]="editingItem.price" class="inline-input" type="number" placeholder="السعر" />
+          <input matInput [(ngModel)]="editingItem.price" class="inline-input" type="number" placeholder="Price" />
         </ng-container>
         <ng-template #viewPrice>{{ item.price }}</ng-template>
       </td>
     </ng-container>
 
-    <!-- Purity Column -->
     <ng-container matColumnDef="purity">
-      <th mat-header-cell *matHeaderCellDef>العيار</th>
+      <th mat-header-cell *matHeaderCellDef>Purity</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewPurity">
-          <input matInput [(ngModel)]="editingItem.purity" class="inline-input" type="number" placeholder="النقاء" />
+          <input matInput [(ngModel)]="editingItem.purity" class="inline-input" type="number" placeholder="Purity" />
         </ng-container>
         <ng-template #viewPurity>{{ item.purity }}</ng-template>
       </td>
     </ng-container>
 
-    <!-- Actions Column -->
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>الإجراءات</th>
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let item">
         <ng-container *ngIf="editingItemId === item.id; else viewActions">
-          <button mat-raised-button color="primary" (click)="saveItemEdit()">حفظ</button>
-          <button mat-raised-button color="warn" (click)="cancelEdit()">إلغاء</button>
+          <button mat-raised-button color="primary" (click)="saveItemEdit()">Save</button>
+          <button mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
         </ng-container>
         <ng-template #viewActions>
-          <button mat-raised-button color="primary" (click)="editItemStart(item.id)">تعديل</button>
-          <button mat-raised-button color="warn" (click)="deleteItem(item.id)">حذف</button>
+          <button mat-raised-button color="primary" (click)="editItemStart(item.id)">Edit</button>
+          <button mat-raised-button color="warn" (click)="deleteItem(item.id)">Delete</button>
         </ng-template>
       </td>
     </ng-container>

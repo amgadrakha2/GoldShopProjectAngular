@@ -1,6 +1,5 @@
 .reports-container {
   padding: 20px;
-  direction: rtl;
   width: 100%;
 
   h1 {
@@ -71,16 +70,16 @@
   }
 
 .table-container {
-  overflow-x: auto; /* Enable horizontal scroll */
+  overflow-x: auto;
 }
 
 .custom-table {
-  width: 150%; /* Adjust width to fit the columns */
+  width: 150%;
 }
 
 .mat-header-cell,
 .mat-cell {
-  min-width: 150px; /* Set minimum width for columns */
-  text-align: center; /* Center-align text in cells */
+  min-width: 150px;
+  text-align: center;
 }
 }

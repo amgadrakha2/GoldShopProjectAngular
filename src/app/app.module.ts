@@ -67,7 +67,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatAutocompleteModule, // Added Module
+    MatAutocompleteModule,
     MatOptionModule,
     MatDatepickerModule,
     MatNativeDateModule,

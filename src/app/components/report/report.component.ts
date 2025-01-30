@@ -33,13 +33,12 @@
       this.reportService.getAllReports().subscribe({
         next: (data) => {
           this.reports = data;
-          this.orders = data.map(report => report.orderData).flat(); // Extract orders from reports
-          // Optionally filter out undefined fields if needed
+          this.orders = data.map(report => report.orderData).flat();
           this.orders = this.orders.map(order => ({
             ...order,
-            time: undefined // Explicitly set time to undefined if required
+            time: undefined
           }));
-          console.log('Orders:', this.orders); // Debug log
+          console.log('Orders:', this.orders);
           this.isLoading = false;
         },
         error: (error) => {
@@ -54,7 +53,7 @@
     searchOrders(): void {
       const searchTerm = this.searchForm.value.searchTerm;
       if (!searchTerm) {
-        this.fetchAllReports(); // Fetch all reports if no search term is provided
+        this.fetchAllReports();
         return;
       }
 
@@ -80,7 +79,7 @@
     }
 
     restartOrders(): void {
-      this.searchForm.reset(); // Clear the search input
-      this.fetchAllReports(); // Re-fetch all reports
+      this.searchForm.reset();
+      this.fetchAllReports();
     }
   }

@@ -1,35 +1,35 @@
-<div class="add-order-container" dir="rtl">
+<div class="add-order-container">
   <form [formGroup]="orderForm" (ngSubmit)="onSubmit()" style="width: 100%;">
-    <!-- تفاصيل الطلب -->
+    <!-- Order Details -->
     <mat-card>
       <mat-card-content formGroupName="client" class="Ordersforms">
         <mat-form-field appearance="outline">
-          <mat-label>اسم العميل</mat-label>
+          <mat-label>Customer Name</mat-label>
           <input
             matInput
             formControlName="name"
-            placeholder="أدخل اسم العميل"
+            placeholder="Enter customer name"
             (blur)="onClientNameBlur()" />
-          <mat-error *ngIf="orderForm.get('client.name')?.invalid">اسم العميل مطلوب.</mat-error>
+          <mat-error *ngIf="orderForm.get('client.name')?.invalid">Customer name is required.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>العنوان</mat-label>
-          <input matInput formControlName="address" placeholder="أدخل العنوان" />
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" placeholder="Enter address" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>رقم الهاتف</mat-label>
-          <input matInput formControlName="phoneNumber" placeholder="أدخل رقم الهاتف" />
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" placeholder="Enter phone number" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>التاريخ</mat-label>
+          <mat-label>Date</mat-label>
           <input matInput formControlName="date" type="date" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>الوقت</mat-label>
+          <mat-label>Time</mat-label>
           <input matInput formControlName="time" type="time" />
         </mat-form-field>
 
@@ -37,78 +37,78 @@
 
       <mat-card-content class="Ordersforms">
         <mat-form-field appearance="outline">
-          <mat-label>نوع الطلب</mat-label>
+          <mat-label>Order Type</mat-label>
           <mat-select formControlName="orderType">
-            <mat-option value="Standard">عادي</mat-option>
-            <mat-option value="Express">سريع</mat-option>
+            <mat-option value="Standard">Standard</mat-option>
+            <mat-option value="Express">Express</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>اسم الموظف</mat-label>
-          <input matInput formControlName="employeeName" placeholder="أدخل اسم الموظف" />
-          <mat-error *ngIf="orderForm.get('employeeName')?.invalid">اسم الموظف مطلوب.</mat-error>
+          <mat-label>Employee Name</mat-label>
+          <input matInput formControlName="employeeName" placeholder="Enter employee name" />
+          <mat-error *ngIf="orderForm.get('employeeName')?.invalid">Employee name is required.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>أجل</mat-label>
-          <input matInput type="number" formControlName="delay" placeholder="أدخل التأخير (اختياري)" />
+          <mat-label>Delay</mat-label>
+          <input matInput type="number" formControlName="delay" placeholder="Enter delay (optional)" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>إجمالي الوزن</mat-label>
+          <mat-label>Total Weight</mat-label>
           <input matInput [value]="orderForm.get('totalWeight')?.value" readonly />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>الإجمالي</mat-label>
+          <mat-label>Total Price</mat-label>
           <input matInput [value]="orderForm.get('totalPrice')?.value" readonly />
         </mat-form-field>
       </mat-card-content>
     </mat-card>
 
-    <!-- المنتجات-->
+    <!-- Products -->
     <mat-card class="itemforms">
       <mat-card-content formArrayName="items">
         <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i" class="item-group">
           <div class="item-fields-container">
             <mat-form-field appearance="outline">
-              <mat-label>اسم المنتج</mat-label>
+              <mat-label>Product Name</mat-label>
               <input
                 matInput
                 formControlName="name"
                 [matAutocomplete]="auto"
                 (input)="filterItems($event, i)"
-                placeholder="أدخل أو اختر اسم المنتج" />
+                placeholder="Enter or select product name" />
               <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onItemNameSelected($event.option.value, i)">
                 <mat-option *ngFor="let option of filteredItems[i]" [value]="option.name">
                   {{ option.name }}
                 </mat-option>
               </mat-autocomplete>
-              <mat-error *ngIf="items.at(i).get('name')?.invalid">اسم العنصر مطلوب.</mat-error>
+              <mat-error *ngIf="items.at(i).get('name')?.invalid">Product name is required.</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>الوزن</mat-label>
-              <input matInput type="number" formControlName="weight" placeholder="أدخل الوزن" />
-              <mat-error *ngIf="items.at(i).get('weight')?.invalid">الوزن مطلوب وصحيح.</mat-error>
+              <mat-label>Weight</mat-label>
+              <input matInput type="number" formControlName="weight" placeholder="Enter weight" />
+              <mat-error *ngIf="items.at(i).get('weight')?.invalid">Weight is required and must be valid.</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>السعر</mat-label>
-              <input matInput type="number" formControlName="price" placeholder="أدخل السعر" />
-              <mat-error *ngIf="items.at(i).get('price')?.invalid">السعر مطلوب وصحيح.</mat-error>
+              <mat-label>Price</mat-label>
+              <input matInput type="number" formControlName="price" placeholder="Enter price" />
+              <mat-error *ngIf="items.at(i).get('price')?.invalid">Price is required and must be valid.</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>العيار</mat-label>
-              <input matInput type="number" formControlName="purity" placeholder="أدخل النقاء" />
-              <mat-error *ngIf="items.at(i).get('purity')?.invalid">النقاء مطلوب وصحيح.</mat-error>
+              <mat-label>Purity</mat-label>
+              <input matInput type="number" formControlName="purity" placeholder="Enter purity" />
+              <mat-error *ngIf="items.at(i).get('purity')?.invalid">Purity is required and must be valid.</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>الباركود التلقائي</mat-label>
-              <input matInput formControlName="autoBarcode" placeholder="أدخل الباركود (اختياري)" />
+              <mat-label>Auto Barcode</mat-label>
+              <input matInput formControlName="autoBarcode" placeholder="Enter barcode (optional)" />
             </mat-form-field>
 
             <button mat-mini-fab color="warn" (click)="removeItem(i)">
@@ -124,12 +124,12 @@
 
     <div class="button-group">
       <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid">
-        إرسال الطلب
+        Submit Order
       </button>
-      <button class="createbtn" mat-raised-button color="accent" type="button" (click)="onNewOrder()">طلب جديد</button>
+      <button class="createbtn" mat-raised-button color="accent" type="button" (click)="onNewOrder()">New Order</button>
     </div>
     <mat-error *ngIf="orderForm.get('items')?.hasError('minLength')">
-      يجب اختيار منتج واحد على الأقل.
+      At least one product must be selected.
     </mat-error>
   </form>
 </div>

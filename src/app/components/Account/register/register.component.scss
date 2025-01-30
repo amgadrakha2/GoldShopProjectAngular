@@ -11,7 +11,7 @@
   background-position: center;
   background-repeat: no-repeat;
   font-family: 'Tajawal', sans-serif;
-  direction: rtl;
+  direction: ltr; /* Set left-to-right direction */
 }
 
 form {
@@ -47,7 +47,7 @@ form h2 {
   margin-bottom: 5px;
   font-weight: bold;
   color: white;
-
+  text-align: left; /* Align label text to the left */
 }
 
 .register-form .form-group input {
@@ -56,14 +56,14 @@ form h2 {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  text-align: right;
+  text-align: left; /* Align input text to the left */
 }
 
 form .form-group .error-message {
   color: #d32f2f;
   font-size: 14px;
   margin-top: 5px;
-  text-align: right;
+  text-align: left; /* Align error message text to the left */
 }
 
 .form-actions {
@@ -218,7 +218,7 @@ form .form-group .error-message {
     padding: 15px;
   }
 
- .form-group input,
+  .form-group input,
   .register-form .form-group input {
     font-size: 14px;
   }

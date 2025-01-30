@@ -1,34 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ClientService } from '../../services/clientservice.service'; // updated service name
-import { Client } from '../../models/client'; // updated model
+import { ClientService } from '../../services/clientservice.service';
+import { Client } from '../../models/client';
 
 @Component({
-  selector: 'app-client', // updated selector
-  templateUrl: './client.component.html', // updated template
+  selector: 'app-client',
+  templateUrl: './client.component.html',
   styleUrls: ['./client.component.scss'],
 })
-export class ClientComponent implements OnInit { // updated class name
-  clients: Client[] = []; // updated array type
+export class ClientComponent implements OnInit {
+  clients: Client[] = [];
   searchName: string = '';
   errorMessage: string = '';
-  addClientForm: FormGroup; // updated form group name
+  addClientForm: FormGroup;
   editingClientId: number | null = null;
-  editingClient: Partial<Client> = {}; // updated client type
+  editingClient: Partial<Client> = {};
 
-  constructor(private clientService: ClientService, private fb: FormBuilder) { // updated service
+  constructor(private clientService: ClientService, private fb: FormBuilder) {
     this.addClientForm = this.fb.group({
       name: ['', Validators.required],
-      address: ['', Validators.required], // updated field
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // updated field
+      address: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
     });
   }
 
   ngOnInit(): void {
-    this.getClients(); // fetch clients instead of items
+    this.getClients();
   }
 
-  // Fetch all clients
   getClients(): void {
     this.clientService.getAllClients().subscribe({
       next: (data) => (this.clients = data),
@@ -39,13 +38,12 @@ export class ClientComponent implements OnInit { // updated class name
     });
   }
 
-  // Add a new client
   addClient(): void {
     const newClient: Client = this.addClientForm.value;
     this.clientService.addClient(newClient).subscribe({
       next: (response) => {
-        alert(response); // Show the success message
-        this.getClients(); // Refresh the list of clients
+        alert(response);
+        this.getClients();
         this.addClientForm.reset();
       },
       error: (err) => {
@@ -55,7 +53,6 @@ export class ClientComponent implements OnInit { // updated class name
     });
   }
 
-  // Search clients by name
   searchClient(): void {
     if (!this.searchName.trim()) {
       alert('Please enter a valid name to search!');
@@ -64,7 +61,7 @@ export class ClientComponent implements OnInit { // updated class name
 
     this.clientService.getClientByName(this.searchName).subscribe({
       next: (client) => {
-        this.clients = [client]; // Replace the list with the found client
+        this.clients = [client];
       },
       error: (err) => {
         this.errorMessage = `Error searching client: ${err.message}`;
@@ -74,23 +71,20 @@ export class ClientComponent implements OnInit { // updated class name
     });
   }
 
-  // Reset clients to show all clients
   resetClients(): void {
     this.searchName = '';
     this.getClients();
   }
 
-  // Start editing a client
   editClientStart(clientId: number): void {
     this.editingClientId = clientId;
     const client = this.clients.find((c) => c.id === clientId);
     if (client) {
-      this.editingClient = { ...client }; // Clone the client for editing
+      this.editingClient = { ...client };
     }
     this.resetClients();
   }
 
-  // Save edited client
   saveClientEdit(): void {
     if (this.editingClientId !== null) {
       const updatedClient = this.editingClient as Client;
@@ -98,15 +92,13 @@ export class ClientComponent implements OnInit { // updated class name
         next: () => {
           const index = this.clients.findIndex((client) => client.id === this.editingClientId);
           if (index !== -1) {
-            this.clients[index] = updatedClient; // Update the local list
+            this.clients[index] = updatedClient;
           }
           alert('Client updated successfully!');
           this.editingClientId = null;
           this.editingClient = {};
-          this.resetClients(); // Reset search and fetch all items again
-
-        } ,
-
+          this.resetClients();
+        },
         error: (err) => {
           this.errorMessage = `Error updating client: ${err.message}`;
           console.error(err);
@@ -115,13 +107,11 @@ export class ClientComponent implements OnInit { // updated class name
     }
   }
 
-  // Cancel editing
   cancelEdit(): void {
     this.editingClientId = null;
     this.editingClient = {};
   }
 
-  // Delete a client
   deleteClient(clientId: number): void {
     this.clientService.deleteClient(clientId).subscribe({
       next: () => {

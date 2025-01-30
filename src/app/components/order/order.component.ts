@@ -48,7 +48,7 @@ export class OrderComponent implements OnInit , OnDestroy {
       delay: [''],
       totalWeight: [0],
       totalPrice: [0],
-      items: this.fb.array([], this.minLengthArray(1)) // Custom validator to ensure at least one item
+      items: this.fb.array([], this.minLengthArray(1))
     });
 
     this.fetchEmployeeNames();
@@ -56,7 +56,6 @@ export class OrderComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit(): void {
-    // Start interval to update the time every second
     this.timeInterval = setInterval(() => {
       this.orderForm.get('client.time')?.setValue(this.getCurrentTimeWithOffset());
     }, 1000);
@@ -67,7 +66,6 @@ export class OrderComponent implements OnInit , OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
 
-    // Clear interval to avoid memory leaks
     if (this.timeInterval) {
       clearInterval(this.timeInterval);
     }
@@ -76,9 +74,8 @@ export class OrderComponent implements OnInit , OnDestroy {
   fetchEmployeeNames(): void {
     this.orderService.getAllOrders().subscribe({
       next: (orders: Order[]) => {
-        // Extract unique employee names from orders
         const names = orders.map(order => order.employeeName);
-        this.allEmployees = Array.from(new Set(names)); // Remove duplicates
+        this.allEmployees = Array.from(new Set(names));
       },
       error: (error) => {
         console.error('Error fetching orders:', error);
@@ -102,8 +99,8 @@ export class OrderComponent implements OnInit , OnDestroy {
 
   private getCurrentTimeWithOffset(): string {
     const now = new Date();
-    now.setHours(now.getHours()); // Add 3 hours to current time
-    return now.toTimeString().split(' ')[0]; // Return HH:mm:ss
+    now.setHours(now.getHours());
+    return now.toTimeString().split(' ')[0];
   }
 
   addItem(): void {
@@ -206,19 +203,17 @@ export class OrderComponent implements OnInit , OnDestroy {
   }
 
   resetForm(): void {
-    // Clear the items FormArray
     while (this.items.length !== 0) {
       this.items.removeAt(0);
     }
 
-    // Reset the form values
     this.orderForm.reset({
       client: {
         name: '',
         address: '',
         phoneNumber: '',
-        date: this.getCurrentDate(), // Reset date to current date
-        time: this.getCurrentTimeWithOffset() // Reset time to current time
+        date: this.getCurrentDate(),
+        time: this.getCurrentTimeWithOffset()
       },
       orderType: '',
       employeeName: '',
@@ -228,10 +223,8 @@ export class OrderComponent implements OnInit , OnDestroy {
       items: []
     });
 
-    // Clear the filteredItems array
     this.filteredItems = [];
 
-    // Mark the form as pristine and untouched
     this.orderForm.markAsPristine();
     this.orderForm.markAsUntouched();
     this.orderForm.updateValueAndValidity();
@@ -251,14 +244,12 @@ export class OrderComponent implements OnInit , OnDestroy {
         console.log('Order created successfully!', response);
         this.isLoading = false;
 
-        // Show success snackbar
         this.snackBar.open('Order created successfully!', 'Close', { duration: 3000 });
       },
       error: (error) => {
         console.error('Error creating order:', error);
         this.isLoading = false;
 
-        // Show error snackbar
         this.snackBar.open('Failed to create order. Please try again.', 'Close', { duration: 3000 });
       },
       complete: () => {

@@ -1,24 +1,17 @@
 <div class="login-container">
   <div class="login-card">
-    <h2>تسجيل الدخول</h2>
+    <h2>Login</h2>
     <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
-      <!-- Username Field -->
       <div class="form-group">
-        <label for="username">اسم المستخدم</label>
+        <label for="username">Username</label>
         <div class="input-with-icon">
           <i class="fas fa-user"></i>
           <input type="text" id="username" formControlName="username" required />
         </div>
       </div>
-      <!-- Password Field -->
       <div class="form-group">
-        <label for="password">كلمة المرور</label>
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          required
-        />
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" required />
         <div
           *ngIf="
             form.get('password')?.hasError('required') &&
@@ -26,28 +19,22 @@
           "
           class="error-message"
         >
-          يرجى إدخال كلمة المرور.
+          Please enter your password.
         </div>
       </div>
-
-      <!-- Submit Button -->
       <div class="form-actions">
         <button type="submit" [disabled]="form.invalid || isLoading" class="login-button">
-          <span *ngIf="!isLoading">تسجيل الدخول</span>
+          <span *ngIf="!isLoading">Login</span>
           <span *ngIf="isLoading" class="spinner"></span>
         </button>
       </div>
     </form>
-
-    <!-- Display Login Messages -->
     <div *ngIf="message" class="login-message">
       <p>{{ message }}</p>
     </div>
-
-    <!-- Register Redirect Text -->
     <div class="register-redirect">
-      <span>إذا لم يكن لديك حساب، </span>
-      <a routerLink="/register" class="register-link">سجل الآن</a>
+      <span>If you don't have an account, </span>
+      <a routerLink="/register" class="register-link">Register Now</a>
     </div>
   </div>
 </div>

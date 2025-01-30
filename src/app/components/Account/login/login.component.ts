@@ -19,49 +19,42 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    // Listen for input changes in the form fields
     this.form.valueChanges.subscribe(() => {
       if (this.isLoading) {
-        this.isLoading = false; // Stop loading if user starts typing
+        this.isLoading = false;
       }
     });
   }
 
   login(): void {
-    console.log('Login method called'); // Debugging
     this.message = '';
 
     if (this.form.invalid) {
-      console.log('Form is invalid'); // Debugging
-      this.message = 'يرجى ملء جميع الحقول المطلوبة.';
+      this.message = 'Please fill in all required fields.';
       return;
     }
 
-    this.isLoading = true; // Start loading
-    console.log('Loading started'); // Debugging
+    this.isLoading = true;
 
     const { username, password } = this.form.value;
 
     this.userService.login(username, password).subscribe({
       next: (response) => {
-        console.log('Login successful', response); // Debugging
         localStorage.setItem('authToken', response.token);
-        this.message = 'تم تسجيل الدخول بنجاح.';
+        this.message = 'Login successful.';
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        console.error('Login error', err); // Debugging
-        if (err.error?.message === 'اسم المستخدم غير موجود.') {
-          this.message = 'اسم المستخدم غير موجود.';
-        } else if (err.error?.message === 'كلمة المرور غير صحيحة.') {
-          this.message = 'كلمة المرور غير صحيحة.';
+        if (err.error?.message === 'Username not found.') {
+          this.message = 'Username not found.';
+        } else if (err.error?.message === 'Incorrect password.') {
+          this.message = 'Incorrect password.';
         } else {
-          this.message = 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
+          this.message = 'An unexpected error occurred. Please try again.';
         }
       },
       complete: () => {
-        console.log('Login complete'); // Debugging
-        this.isLoading = false; // Stop loading
+        this.isLoading = false;
       },
     });
   }

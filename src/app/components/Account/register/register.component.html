@@ -1,67 +1,54 @@
 <div class="register-container">
   <form class="register-card" (ngSubmit)="registerUser()" class="register-form" #registerForm="ngForm">
-    <h2>إنشاء حساب جديد</h2>
-    <!-- Username Field -->
+    <h2>Create New Account</h2>
     <div class="form-group">
-      <label for="username">اسم المستخدم</label>
+      <label for="username">Username</label>
       <div class="input-with-icon">
-        <i class="fas fa-user"></i> <!-- Font Awesome icon -->
+        <i class="fas fa-user"></i>
         <input type="text" id="username" [(ngModel)]="user.userName" name="userName" required />
       </div>
       <div *ngIf="registerForm.controls['userName']?.invalid && registerForm.controls['userName']?.touched" class="error-message">
-        يجب إدخال اسم المستخدم.
+        Username is required.
       </div>
     </div>
-
-    <!-- Password Field -->
     <div class="form-group">
-      <label for="password">كلمة المرور</label>
+      <label for="password">Password</label>
       <div class="input-with-icon">
-        <i class="fas fa-lock"></i> <!-- Font Awesome icon -->
+        <i class="fas fa-lock"></i>
         <input type="password" id="password" [(ngModel)]="user.password" name="password" required />
       </div>
       <div *ngIf="registerForm.controls['password']?.invalid && registerForm.controls['password']?.touched" class="error-message">
-        يجب إدخال كلمة المرور.
+        Password is required.
       </div>
     </div>
-
-    <!-- Phone Number Field -->
     <div class="form-group">
-      <label for="phoneNumber">رقم الهاتف</label>
+      <label for="phoneNumber">Phone Number</label>
       <div class="input-with-icon">
-        <i class="fas fa-phone"></i> <!-- Font Awesome icon -->
+        <i class="fas fa-phone"></i>
         <input type="text" id="phoneNumber" [(ngModel)]="user.phoneNumber" name="phoneNumber" required />
       </div>
       <div *ngIf="registerForm.controls['phoneNumber']?.invalid && registerForm.controls['phoneNumber']?.touched" class="error-message">
-        يجب إدخال رقم الهاتف.
+        Phone number is required.
       </div>
     </div>
-
-    <!-- Error Messages -->
-    <div *ngIf="errorMessage === 'يجب إدخال 11 رقمًا.'" class="error-message">
+    <div *ngIf="errorMessage === 'Please enter 11 digits.'" class="error-message">
       {{ errorMessage }}
     </div>
-    <div *ngIf="errorMessage && errorMessage !== 'يجب إدخال 11 رقمًا.'" class="error-message">
+    <div *ngIf="errorMessage && errorMessage !== 'Please enter 11 digits.'" class="error-message">
       {{ errorMessage }}
     </div>
-
-    <!-- Submit Button -->
     <div class="form-actions">
       <button type="submit" [disabled]="registerForm.invalid || isLoading" class="register-button">
-        <span *ngIf="!isLoading">تسجيل</span>
+        <span *ngIf="!isLoading">Register</span>
         <span *ngIf="isLoading" class="spinner"></span>
       </button>
     </div>
-
-    <!-- Display Registration Messages -->
     <div *ngIf="message" class="register-message">
       <p>{{ message }}</p>
     </div>
-
-    <!-- Login Redirect Text -->
     <div class="login-redirect">
-      <span>إذا كان لديك حساب، </span>
-      <a routerLink="/login" class="login-link">سجل الدخول الآن</a>
+      <span>If you already have an account, </span>
+      <a routerLink="/login" class="login-link">Login Now</a>
     </div>
   </form>
 </div>

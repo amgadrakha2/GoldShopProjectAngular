@@ -50,7 +50,7 @@ export class SettingsComponent implements OnInit {
    * @param index The index of the setting in the array.
    */
   updateSetting(setting: Settings, index: number): void {
-    setting.purityPrice = parseFloat(setting.purityPrice.toFixed(2)); // Ensure 2 decimals
+    setting.purityPrice = parseFloat(setting.purityPrice.toFixed(2)); 
     this.settingsService.updateSetting(setting.id, setting).subscribe({
       next: () => {
         alert('Setting updated successfully!');

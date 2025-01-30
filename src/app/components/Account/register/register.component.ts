@@ -17,38 +17,35 @@ export class RegisterComponent {
   constructor(private userService: UserService, private router: Router) {}
 
   registerUser(): void {
-    // Reset error and success messages
     this.errorMessage = '';
     this.message = '';
 
-    // Validate general inputs
     if (!this.validateInputs()) {
-      this.errorMessage = 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح.';
+      this.errorMessage = 'Please fill in all required fields correctly.';
       return;
     }
 
-    // Validate phone number
     if (!this.validatePhoneNumber()) {
-      this.errorMessage = 'يجب إدخال 11 رقمًا.'; // Arabic message for 11 digits
+      this.errorMessage = 'Please enter 11 digits.';
       return;
     }
 
-    this.isLoading = true; // Start loading
+    this.isLoading = true;
 
     this.userService.register(this.user).subscribe({
       next: (response) => {
-        this.message = 'تم التسجيل بنجاح! يتم التوجيه إلى صفحة تسجيل الدخول...';
+        this.message = 'Registration successful! Redirecting to login page...';
         console.log(response.message);
         setTimeout(() => {
           this.router.navigate(['/login']);
-        }, 2000); // Delay navigation to show the success message
+        }, 2000);
       },
       error: (err) => {
         console.error('Error:', err);
-        this.errorMessage = err?.error?.message || 'حدث خطأ غير متوقع.';
+        this.errorMessage = err?.error?.message || 'An unexpected error occurred.';
       },
       complete: () => {
-        this.isLoading = false; // Stop loading
+        this.isLoading = false;
       },
     });
   }

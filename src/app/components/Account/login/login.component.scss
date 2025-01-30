@@ -10,8 +10,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Tajawal', sans-serif;
-  direction: rtl;
+  font-family: 'Roboto', sans-serif;
 }
 
 .login-card {
@@ -49,12 +48,11 @@
 }
 
 .login-form .form-group input {
-  width: 95%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  text-align: right;
   background-color: rgba(255, 255, 255, 0.8);
 }
 
@@ -62,7 +60,6 @@
   color: #ff6b6b;
   font-size: 14px;
   margin-top: 5px;
-  text-align: right;
 }
 
 .form-actions {

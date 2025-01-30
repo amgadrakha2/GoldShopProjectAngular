@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [authGuard], // Add the auth guard here
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'order', pathMatch: 'full' },
       { path: 'order', component: OrderComponent},

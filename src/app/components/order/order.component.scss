@@ -1,29 +1,28 @@
 mat-form-field {
-  --mat-primary-color: #4caf50; /* Green */
-  --mat-accent-color: #ff5722; /* Orange */
-  --mat-warn-color: #f44336;  /* Red */
+  --mat-primary-color: #4caf50;
+  --mat-accent-color: #ff5722;
+  --mat-warn-color: #f44336;
 }
 
 mat-error {
-  color: var(--mat-warn-color); /* Custom error color */
+  color: var(--mat-warn-color);
 }
 
 .Ordersforms {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 columns */
-  gap: 16px; /* Spacing between fields */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
-.createbtn{
-  background-color: #ffc107; /* Primary button color */
-  color: white  !important;}
 
-
+.createbtn {
+  background-color: #ffc107;
+  color: white !important;
+}
 
 .Ordersforms mat-form-field {
-  width: 100%; /* Ensure fields take the full width of the grid column */
+  width: 100%;
 }
 
-.itemforms mat-form-field{
-
+.itemforms mat-form-field {
   width: 19%;
 }

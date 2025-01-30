@@ -23,7 +23,7 @@ export class HomeComponent {
 
 
   logout(): void {
-    localStorage.clear(); // Clear any stored authentication tokens
-    this.router.navigate(['/login']); // Navigate back to the login page
+    localStorage.clear();
+    this.router.navigate(['/login']); 
   }
 }

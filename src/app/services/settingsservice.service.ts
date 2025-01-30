@@ -13,16 +13,13 @@ export class SettingsService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Get all settings.
-   */
+
   getAllSettings(): Observable<Settings[]> {
     return this.http.get<Settings[]>(this.apiUrl);
   }
 
   /**
-   * Get a setting by its ID.
-   * @param id The ID of the setting.
+   * @param id
    */
   getSettingById(id: number): Observable<Settings> {
     return this.http.get<Settings>(`${this.apiUrl}/${id}`);
