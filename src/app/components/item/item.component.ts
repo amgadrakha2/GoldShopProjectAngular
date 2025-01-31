@@ -129,9 +129,9 @@ export class ItemComponent implements OnInit {
 
   deleteItem(itemId: number): void {
     this.itemService.deleteItem(itemId).subscribe({
-      next: () => {
+      next: (response) => {
         this.items = this.items.filter((item) => item.id !== itemId);
-        alert('Item deleted successfully!');
+        alert(response.message); 
       },
       error: (err) => {
         this.errorMessage = `Error deleting item: ${err.message}`;
